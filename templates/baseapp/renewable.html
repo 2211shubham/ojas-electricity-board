@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>OJAS</title>
+    {% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/renewable.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet"> 
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #24bbcf;
+      text-align: left;
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    @media screen and (max-width: 768px) {
+  .line {
+    width: 30px;
+    height: 3px;
+    background: white;
+    margin: 5px;
+  }
+
+  nav {
+    position: absolute;
+  }
+
+  #brandrenew {
+    position: absolute;
+    cursor: pointer;
+    left: 5%;
+    top: 50%;
+    transform: translate(-5%, -50%);
+    z-index: 2;
+  }
+  #brandrenew li a{
+      color: white;
+  }
+
+  .hamburger {
+    position: absolute;
+    cursor: pointer;
+    right: 7%;
+    top: 50%;
+    transform: translate(-7%, -50%);
+    z-index: 2;
+  }
+
+  .nav-links {
+    position: absolute;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    clip-path: circle(60px at 90% -10%);
+    -webkit-clip-path: circle(60px at 90% -10%);
+    transition: all 1s ease-out;
+    pointer-events: none;
+  }
+
+  .nav-links li a{
+      color: white;
+  }
+
+  .nav-links.open {
+    clip-path: circle(1000px at 90% -10%);
+    -webkit-clip-path: circle(1000px at 90% -10%);
+    pointer-events: all;
+    overflow: hidden;
+  }
+
+  #backgrenew {
+    background-image: url("/static/images/mobile-renewable.jpg");
+  }
+  .cid-form h1 {
+        font-size: 2rem;
+        margin-top: 3rem;
+    }
+  .title {
+      font-size: 4rem;
+  }
+    
+  #inp input {
+    width: 25%;
+    border: 2px solid #5ab2ec;
+    border-radius: 2px;
+    text-align: center;
+    padding: 0.6rem 0;
+    cursor: text;
+  }
+  
+  #inp button {
+    font-family: inherit;
+    font-size: 1.4rem;
+    width: 15%;
+    padding: 0.4rem 0;
+    border: none;
+    border-radius: 5%;
+    background: #0ad9ff;
+    margin: 2rem 1rem;
+  }
+  
+}
+</style>
+</head>
+<body>
+
+    <section id="backgrenew">
+        <nav>
+            <div id="brandrenew">
+                <li><a href="{% url 'home' %}">OJAS</a></li>
+            </div>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'complaint' %}">Complaint</a></li>
+                <li><a href="{% url 'renewable' %}">Renewable Energy</a></li>
+                <li><a href="{% url 'register' %}">Register Complaint</a></li>
+                <li><a href="{% url 'bill' %}">Electricity Bill</a></li>
+            </ul>
+        </nav>
+</section>
+<br>
+<div class="title">Solar Energy</div>
+<div id="inp">
+    <form  method="POST">
+        {% csrf_token %}
+        {{ form.Cityname }}
+        {{ form.wattage }}
+        <button type="submit">Add</button>
+    </form>
+</div>
+<br>
+<div class="container">
+    <table>
+        <tr>
+        <th>City Name</th>
+        <th>Daylight</th>
+        <th>Wattage</th>
+        <th>Power</th>
+        <th>Tilt Angle</th>
+        </tr>
+        <tr>
+        <td>{{ weather_data.city }}</td>
+        <td>{{ weather_data.average }}</td>
+        <td>{{ weather_data.wattage }}</td>
+        <td>{{ weather_data.power }}</td>
+        <td>{{ weather_data.TA }}</td>
+        </tr>
+    </table>
+</div>
+<div style="margin-top: 60px;"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="{% static 'javascript/script.js' %}"></script>
+</html>
